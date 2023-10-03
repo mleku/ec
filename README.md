@@ -1,4 +1,4 @@
-btc/ec
+github.com/mleku/ec
 =====
 
 This is a full drop-in replacement for
