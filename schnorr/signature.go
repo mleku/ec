@@ -126,14 +126,14 @@ func schnorrVerify(sig *Signature, hash []byte, pubKeyBytes []byte) error {
 	// 10. Return success iff not failure occured before reachign this
 	// point.
 
-	// Step 1.
-	//
-	// Fail if m is not 32 bytes
-	if len(hash) != scalarSize {
-		str := fmt.Sprintf("wrong size for message (got %v, want %v)",
-			len(hash), scalarSize)
-		return signatureError(ecdsa_schnorr.ErrInvalidHashLen, str)
-	}
+	// // Step 1.
+	// //
+	// // Fail if m is not 32 bytes
+	// if len(hash) != scalarSize {
+	// 	str := fmt.Sprintf("wrong size for message (got %v, want %v)",
+	// 		len(hash), scalarSize)
+	// 	return signatureError(ecdsa_schnorr.ErrInvalidHashLen, str)
+	// }
 
 	// Step 2.
 	//
@@ -438,14 +438,14 @@ func Sign(privKey *btcec.SecretKey, hash []byte,
 	var privKeyScalar btcec.ModNScalar
 	privKeyScalar.Set(&privKey.Key)
 
-	// Step 2.
-	//
-	// Fail if m is not 32 bytes
-	if len(hash) != scalarSize {
-		str := fmt.Sprintf("wrong size for message hash (got %v, want %v)",
-			len(hash), scalarSize)
-		return nil, signatureError(ecdsa_schnorr.ErrInvalidHashLen, str)
-	}
+	// // Step 2.
+	// //
+	// // Fail if m is not 32 bytes
+	// if len(hash) != scalarSize {
+	// 	str := fmt.Sprintf("wrong size for message hash (got %v, want %v)",
+	// 		len(hash), scalarSize)
+	// 	return nil, signatureError(ecdsa_schnorr.ErrInvalidHashLen, str)
+	// }
 
 	// Step 3.
 	//
@@ -520,15 +520,16 @@ func Sign(privKey *btcec.SecretKey, hash []byte,
 	privKeyScalar.PutBytes(&privKeyBytes)
 	defer zeroArray(&privKeyBytes)
 	for iteration := uint32(0); ; iteration++ {
+		var k *secp.ModNScalar
+
 		// Step 6-9.
 		//
 		// Use RFC6979 to generate a deterministic nonce k in [1, n-1]
 		// parameterized by the secret key, message being signed, extra data
 		// that identifies the scheme, and an iteration count
-		k := btcec.NonceRFC6979(
+		k = btcec.NonceRFC6979(
 			privKeyBytes[:], hash, rfc6979ExtraDataV0[:], nil, iteration,
 		)
-
 		// Steps 10-15.
 		sig, err := schnorrSign(&privKeyScalar, k, pub, hash, opts)
 		k.Zero()
