@@ -1,7 +1,7 @@
 github.com/mleku/ec
 =====
 
-zap me to support my work ⚡️mleku@getalby.com
+zap me to support my work `⚡️mleku@getalby.com`
 
 This is a full drop-in replacement for
 [github.com/btcsuite/btcd/btcec](https://github.com/btcsuite/btcd/tree/master/btcec)
