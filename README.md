@@ -2,7 +2,7 @@ github.com/mleku/ec
 =====
 
 zap me to support my work `⚡️mleku@getalby.com`
- ⚡️powa@geyser.fund
+
 This is a full drop-in replacement for
 [github.com/btcsuite/btcd/btcec](https://github.com/btcsuite/btcd/tree/master/btcec)
 eliminating the import from the Decred repository, and including the chainhash
